@@ -1,5 +1,6 @@
 package com.apusx.chatapp.ui.dashboard
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.apusx.chatapp.MainActivity
 import com.apusx.chatapp.R
 import com.apusx.chatapp.databinding.FragmentDashboardBinding
 import com.google.firebase.auth.ktx.auth
@@ -49,6 +52,7 @@ class DashboardFragment : Fragment() {
         val passprof: TextView = binding.passprof
 
         val btnprof: Button = binding.buttonprof
+        val exitprf: Button = binding.exitbtn
 
         val user = Firebase.auth.currentUser
 
@@ -81,6 +85,7 @@ class DashboardFragment : Fragment() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d("Firebase", "User profile updated.")
+                        Toast.makeText(activity,"User profile updated", Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -89,6 +94,7 @@ class DashboardFragment : Fragment() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d("Firebase", "User email address updated.")
+                        Toast.makeText(activity,"User email address updated.", Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -96,11 +102,17 @@ class DashboardFragment : Fragment() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d("Firebase", "User password updated.")
+                        Toast.makeText(activity,"User password updated", Toast.LENGTH_LONG).show()
                     }
                 }
         }
 
 
+        exitprf.setOnClickListener(){
+            Firebase.auth.signOut()
+            Toast.makeText(activity,"Sign Out", Toast.LENGTH_LONG).show()
+            startActivity(Intent(activity,MainActivity::class.java))
+        }
         return root
     }
 

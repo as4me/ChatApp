@@ -1,9 +1,12 @@
 package com.apusx.chatapp.ui.notifications
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -35,6 +38,23 @@ class NotificationsFragment : Fragment() {
         notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
          //   textView.text = it
         })
+
+
+        val switch: Switch = binding.switch1
+
+
+        val sharedPreference =  activity?.getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
+        var editor = sharedPreference?.edit()
+
+        sharedPreference?.getBoolean("switch",false)?.let { switch.setChecked(it) }
+
+
+        switch.setOnCheckedChangeListener { buttonView, isChecked ->
+            editor?.putBoolean("switch",switch.isChecked)
+            editor?.commit()
+        }
+
+
         return root
     }
 

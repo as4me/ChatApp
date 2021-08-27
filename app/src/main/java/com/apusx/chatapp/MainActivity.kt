@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     fun String.isValidEmail(): Boolean
             = this.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
     private lateinit var auth: FirebaseAuth
 
     val TAG = "TEST"
@@ -52,7 +53,6 @@ class MainActivity : AppCompatActivity() {
                     if(binding.password.text.isEmpty())
                         Toast.makeText(this,"Password Invalid",Toast.LENGTH_LONG).show()
                     else{
-                        Toast.makeText(this,"OK",Toast.LENGTH_LONG).show()
 
                         auth.signInWithEmailAndPassword(binding.email.text.toString(), binding.password.text.toString())
                             .addOnCompleteListener(this) { task ->

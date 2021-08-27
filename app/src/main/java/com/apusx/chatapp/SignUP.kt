@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.widget.Toast
 import com.apusx.chatapp.databinding.ActivityMainBinding
 import com.apusx.chatapp.databinding.ActivitySignUpBinding
@@ -18,6 +19,9 @@ class SignUP : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     val TAG = "TEST"
+
+    fun String.isValidEmail(): Boolean
+            = this.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,4 +87,6 @@ class SignUP : AppCompatActivity() {
 
 
     }
+
+
 }
